@@ -8,7 +8,7 @@ export const KNOWN_CORE_TOOLS = new Set([
 
 export const RISKY_DESCRIPTION_PATTERNS = [
   {
-    regex: /(ignore|override|bypass)\s+(all\s+)?(previous|prior|system)\s+(instructions|prompts|rules)/i,
+    regex: /(ignore|override|bypass)\s+(all\s+)?((previous|prior|system|chat|base)\s+)*(instructions|prompts|rules|context)/i,
     severity: 'CRITICAL',
     category: 'PROMPT_INJECTION',
     title: 'Prompt Injection / System Prompt Override Detected'
@@ -20,13 +20,13 @@ export const RISKY_DESCRIPTION_PATTERNS = [
     title: 'Data Exfiltration Instruction in Tool Description'
   },
   {
-    regex: /silently\s+(execute|run|install|download)/i,
+    regex: /silently\s+(execute|run|install|download|exfiltrate|send)/i,
     severity: 'HIGH',
     category: 'DECEPTIVE_DESCRIPTION',
     title: 'Silent Execution Instruction in Tool Description'
   },
   {
-    regex: /do\s+not\s+(notify|tell|inform|warn)\s+(the\s+)?user/i,
+    regex: /(do\s+not|never)\s+(notify|tell|inform|warn)\s+(the\s+)?user|without\s+(notifying|alerting|telling)\s+(the\s+)?user/i,
     severity: 'HIGH',
     category: 'STEALTH_DIRECTIVE',
     title: 'Covert Behavior Directive (Hiding actions from user)'
